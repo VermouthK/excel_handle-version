@@ -1,0 +1,53 @@
+# !/user/bin/env python
+# -*- coding:utf-8 -*-
+import xlrd
+import os
+import openpyxl
+workbook = xlrd.open_workbook('D:\\untitled\\职工信息登记表.xlsx') #打开excel数据表
+SheetList = workbook.sheet_names()#读取电子表到列表
+SheetName = SheetList[0]#读取第一个电子表的名称
+Sheet1 = workbook.sheet_by_index(0) #电子表索引从0开始
+Sheet1 = workbook.sheet_by_name(SheetName) #实例化电子表对象
+
+row=Sheet1.col_values(47)#取出部门的这一列#
+rowsum=Sheet1.col_values(46)#取出工务分公司这一列，主要是统计总数#
+a1='汇总：'+str(rowsum.count('工务分公司 '))
+a2='总经理室：'+str(row.count('总经理室'))
+a3='党委室：'+str(row.count('党委室'))
+a4='工会：'+str(row.count('工会'))
+a5='党建工作部/监察室：'+str(row.count('党建工作部/监察室'))
+a6='财务部：'+str(row.count('财务部'))
+a7='人力资源部：'+str(row.count('人力资源部'))
+a8='综合办公室：'+str(row.count('综合办公室'))
+a9='设备管理部：'+str(row.count('设备管理部'))
+a10='生产计划部：'+str(row.count('生产计划部'))
+a11='生产调度组：'+str(row.count('生产调度组'))
+a12='质量安全部：'+str(row.count('质量安全部'))
+a13='质安监察组：'+str(row.count('质安监察组'))
+a14='质量安全专职监督检查队：'+str(row.count('质量安全专职监督检查队'))
+a15='轨道维护一部：'+str(row.count('轨道维护一部'))
+a16='轨道维护二部：'+str(row.count('轨道维护二部'))
+a17='轨道维护三部：'+str(row.count('轨道维护三部'))
+a18='土建维护一部：'+str(row.count('土建维护一部'))
+a19='土建维护二部：'+str(row.count('土建维护二部'))
+a20='土建维护三部：'+str(row.count('土建维护三部'))
+a21='综合大修部：'+str(row.count('综合大修部'))
+a22='装备管理部：'+str(row.count('装备管理部'))
+a23='监护监测部：'+str(row.count('监护监测部'))
+a24='监护工程部：'+str(row.count('监护工程部'))
+row=Sheet1.col_values(49)
+a25='机关部门：'+str(row.count('机关部门'))
+a26='生产部门：'+str(row.count('生产部门'))
+row = Sheet1.col_values(57)#取出管理生产列#
+a27='管理：'+str( row.count('管理'))
+a28='生产：'+str( row.count('生产'))
+row = Sheet1.col_values(72)#取出工务监护列#
+a29='工务：'+str(row.count('工务'))
+a30='监护：'+str( row.count('监护'))
+wb=openpyxl.Workbook()#实例化一个Workbook类#
+ws=wb.active#激活第一个列表#
+#box里面放上面所有需要添加的变量，这边注意下面ws.append 里面传入的i必须是一个列表，所以这边都弄成了列表#
+box=[[a1],[a2],[a3],[a4],[a5],[a6],[a7],[a8],[a9],[a10],[a11],[a12],[a13],[a14],[a15],[a16],[a17],[a18],[a19],[a20],[a21],[a22],[a23],[a24],[a25],[a26],[a27],[a28],[a29],[a30]]
+for i in box:  #迭代box里面的列表添加到新的excel#
+    ws.append(i)
+wb.save('工务分公司数据统计.xlsx')   #保存为新的excel#
